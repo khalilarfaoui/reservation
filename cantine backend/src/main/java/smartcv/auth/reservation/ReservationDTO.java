@@ -16,6 +16,7 @@ public class ReservationDTO {
     private String garnish;     // Matches garniture
     private String dessert;      // Matches dessert
     private String sandwich;     // Matches sandwich
+    private String otherReservetion;     // Matches sandwich
 
 
 

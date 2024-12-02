@@ -40,6 +40,7 @@ public class ReservationService {
             reservation.setSelectedGarnish(dto.getGarnish());
             reservation.setSelectedDessert(dto.getDessert());
             reservation.setSelectedSandwich(dto.getSandwich());
+            reservation.setOtherReservetion(dto.getOtherReservetion());
 
             // Fetching Menu and User from the repository
             Optional<User> user = userRepository.findById(userId);

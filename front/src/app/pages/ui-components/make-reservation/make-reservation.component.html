@@ -121,15 +121,15 @@
           </tr>
           <tr *ngFor="let s of currentSousMenus ; let j = index ;">
             <td class="mac">{{ s.name }}</td>
-            <ng-container *ngFor="let menu of currentMenus; let i = index">
+            <ng-container *ngFor="let menu of s.valeur; let i = index">
               <td>
                 <button
-                [ngClass]="{
-                  selected: isSelected(menu?.date, 'otherMenu', menu.otherMenu[j])
-                }"
-                (click)="selectOption(menu?.date, 'otherMenu', menu.otherMenu[j])"
+                  (click)="selectOption2(menu , i)"
+                  [ngClass]="{
+                    selected: isSelected(currentMenus[i+1]?.date, 'otherReservetion', menu)
+                  }"
                 >
-                  {{ menu.otherMenu[j] }}
+                  {{ menu }}
                 </button>
               </td>
             </ng-container>

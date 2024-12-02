@@ -36,11 +36,8 @@ public class Reservation {
     private List<Feedback> feedbacks;
     // Additional fields as necessary
 
+    private String otherReservetion ;
 
-    @ElementCollection
-    @CollectionTable(name = "reservation", joinColumns = @JoinColumn(name = "reservation_id"))
-    @Column(name = "reservation")
-    private List<String> otherMenu;
 
     @Override
     public String toString() {

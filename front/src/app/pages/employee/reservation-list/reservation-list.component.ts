@@ -35,6 +35,7 @@ export class ListReservationComponent implements OnInit {
     'selectedMainCourse',
     'selectedDessert',
     'selectedEntree',
+    'otherReservetion',
     'price',
     'actions'
   ];

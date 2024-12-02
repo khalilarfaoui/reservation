@@ -43,6 +43,10 @@
               <th mat-header-cell *matHeaderCellDef>Entree</th>
               <td mat-cell *matCellDef="let element">{{ element.selectedEntree }}</td>
             </ng-container>
+            <ng-container matColumnDef="otherReservetion">
+              <th mat-header-cell *matHeaderCellDef>Other Reservetion</th>
+              <td mat-cell *matCellDef="let element">{{ element.otherReservetion }}</td>
+            </ng-container>
 
             <!-- Price Column -->
             <ng-container matColumnDef="price">

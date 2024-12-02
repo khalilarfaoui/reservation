@@ -65,7 +65,7 @@ export class MakeReservationComponent implements OnInit {
         garnish: null,
         dessert: null,
         sandwich: null,
-        otherMenu: null,
+        otherReservetion: null,
       };
       // Update with reservation data if available
       this.reservations.forEach((reservation) => {
@@ -80,14 +80,23 @@ export class MakeReservationComponent implements OnInit {
             garnish: reservation.selectedGarnish,
             dessert: reservation.selectedDessert,
             sandwich: reservation.selectedSandwich,
+            otherReservetion: reservation.otherReservetion,
           };
         }
       });
+
+      console.log(this.selectedOptions);
+
     });
   }
 
   isSelected(day: Date, type: string, option: string): boolean {
+
+    if(!day){
+      return false;
+    }
     const dateStr = day.toDateString();
+
     return this.selectedOptions[dateStr]?.[type] === option;
   }
 
@@ -118,13 +127,11 @@ export class MakeReservationComponent implements OnInit {
 
   // Exemple d'utilisation
 
-
-
   selectOption(day: Date, type: string, option: string): void {
     console.log(this.verifierDate(new Date(day)));
 
-    if(!this.verifierDate(new Date(day))){
-      alert("La date est aujourd'hui et elle dépasse 9h30.")
+    if (!this.verifierDate(new Date(day))) {
+      alert("La date est aujourd'hui et elle dépasse 9h30.");
       return;
     }
 
@@ -148,6 +155,24 @@ export class MakeReservationComponent implements OnInit {
     }
 
     console.log(this.selectedOptions);
+  }
+
+  selectOption2(data: any, index: any) {
+    console.log(this.selectedOptions);
+    console.log(index + 1);
+    const dateStr = this.currentMenus[index + 1].date.toDateString();
+    Object.keys(this.selectedOptions[dateStr]).forEach((key) => {
+      if (key !== 'sandwich' && key !== 'id') {
+        this.selectedOptions[dateStr][key] = null; // Deselect all meals
+      }
+    });
+    console.log(this.selectedOptions[dateStr]['sandwich']);
+    this.selectedOptions[dateStr]['sandwich'] = null; // Deselect sandwich
+
+
+    this.selectedOptions[dateStr]['otherReservetion'] = data
+
+    console.log("*******" ,this.selectedOptions[dateStr]['otherReservetion']);
   }
 
   getSandwichesForDay(day: Date): string[] {
@@ -214,21 +239,6 @@ export class MakeReservationComponent implements OnInit {
         ...currentMenusNoDate[i + 1],
       });
     }
-    this.currentMenus.map((i: any) => {
-
-      i.otherMenu = [];
-
-
-    });
-    console.log('final ', this.currentMenus);
-
-    this.currentSousMenus.map((k: any) => {
-          console.log("k.valeur" , k.valeur);
-          for (var i = 0; i < this.currentMenus.length ; i++) {
-            this.currentMenus[i].otherMenu.push(k.valeur[i])
-          }
-    });
-    console.log(this.currentMenus);
 
     // this.currentMenus.map((i: any) => {
     //   i.otherMenu = [];
@@ -255,11 +265,14 @@ export class MakeReservationComponent implements OnInit {
   }
 
   async saveUpdates(): Promise<void> {
+
     const selectedReservations = this.days.map((day) => {
       const dateStr = day.toDateString();
+      console.log('hello' , this.selectedOptions[dateStr])
       return {
         date: dateStr,
         ...this.selectedOptions[dateStr],
+
       };
     });
 
